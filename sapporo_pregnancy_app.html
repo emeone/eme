@@ -1,17 +1,16 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>札幌市 出産準備アプリ</title>
-  <meta name="theme-color" content="#FF69B4" />
-
-  <!-- Fonts: preconnect + swap -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rounded+Mplus+1c:wght@400;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>札幌市 出産準備アプリ</title>
+<meta content="#FF69B4" name="theme-color"/>
+<!-- Fonts: preconnect + swap -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Rounded+Mplus+1c:wght@400;700;800&amp;family=Noto+Sans+JP:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<style>
     :root{
       --pink-50:#FFFAFC;
       --pink-100:#FFF0F5;
@@ -259,577 +258,486 @@
   </style>
 </head>
 <body>
-  <!-- ログイン画面 -->
-  <div id="loginScreen" aria-labelledby="appTitle">
-    <div class="login-container">
-      <div class="login-icon" aria-hidden="true">👶</div>
-      <div id="appTitle" class="login-title">出産準備アプリ</div>
-      <div class="login-subtitle">札幌市版</div>
-
-      <form id="loginForm" novalidate>
-        <div class="error-message" id="errorMessage" role="alert">
+<!-- ログイン画面 -->
+<div aria-labelledby="appTitle" id="loginScreen">
+<div class="login-container">
+<div aria-hidden="true" class="login-icon">👶</div>
+<div class="login-title" id="appTitle">出産準備アプリ</div>
+<div class="login-subtitle">札幌市版</div>
+<form id="loginForm" novalidate="">
+<div class="error-message" id="errorMessage" role="alert">
           ユーザー名またはパスワードが正しくありません
         </div>
+<div class="form-group">
+<label for="username">ユーザー名</label>
+<input autocomplete="username" id="username" inputmode="numeric" name="username" required=""/>
+</div>
+<div class="form-group">
+<label for="password">パスワード</label>
+<div class="form-row">
+<input autocomplete="current-password" id="password" name="password" required="" type="password"/>
+<button aria-controls="password" aria-pressed="false" class="toggle-pass" id="togglePassBtn" type="button">表示</button>
+</div>
+</div>
+<button class="login-btn" type="submit">ログイン</button>
 
-        <div class="form-group">
-          <label for="username">ユーザー名</label>
-          <input id="username" name="username" inputmode="numeric" autocomplete="username" placeholder="123" required />
-        </div>
-
-        <div class="form-group">
-          <label for="password">パスワード</label>
-          <div class="form-row">
-            <input id="password" name="password" type="password" autocomplete="current-password" placeholder="123" required />
-            <button class="toggle-pass" type="button" id="togglePassBtn" aria-pressed="false" aria-controls="password">表示</button>
-          </div>
-        </div>
-
-        <button type="submit" class="login-btn">ログイン</button>
-
-        <div class="login-hint" aria-live="polite">
-          <strong>💡 ログイン情報</strong><br>
-          ID: <code>123</code> / PW: <code>123</code>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- メインアプリ -->
-  <div id="mainContent" aria-live="polite">
-    <!-- ホームタブ -->
-    <section id="homeTab" class="tab-content active" aria-labelledby="homeTabTitle">
-      <header class="app-header">
-        <div class="header-top">
-          <h1 id="homeTabTitle" class="app-title">🍼 出産準備アプリ</h1>
-          <button class="logout-btn" id="logoutBtn" type="button">ログアウト</button>
-        </div>
-      </header>
-
-      <!-- カウントダウンカード -->
-      <section class="countdown-card" aria-describedby="dueDateLabel">
-        <div class="baby-icon" aria-hidden="true">👶</div>
-        <div class="countdown-main" id="daysLeft" aria-live="polite">--</div>
-        <div class="countdown-label" id="dueDateLabel">出産予定日まで</div>
-        <div class="week-info">
-          <div class="week-item">
-            <div class="week-item-label">現在</div>
-            <div class="week-item-value" id="currentWeek">--週--日</div>
-          </div>
-          <div class="week-item">
-            <div class="week-item-label">予定日</div>
-            <div class="week-item-value" id="dueDate">--/--</div>
-          </div>
-        </div>
-        <button class="change-date-btn" id="changeDueDateBtn" type="button">📅 予定日を変更</button>
-      </section>
-
-      <!-- 赤ちゃんの成長カード -->
-      <section class="baby-growth-card">
-        <div class="card-title"><span>🌱</span><span id="babyGrowthTitle">赤ちゃんの成長</span></div>
-        <div class="baby-size">
-          <div class="size-item" aria-label="赤ちゃんの大きさ">
-            <div class="size-icon" aria-hidden="true">📏</div>
-            <div class="size-label">大きさ</div>
-            <div class="size-value" id="babySize">--cm</div>
-          </div>
-          <div class="size-item" aria-label="赤ちゃんの体重">
-            <div class="size-icon" aria-hidden="true">⚖️</div>
-            <div class="size-label">体重</div>
-            <div class="size-value" id="babyWeight">--g</div>
-          </div>
-        </div>
-        <div class="growth-description" id="growthDescription">
+</form>
+</div>
+</div>
+<!-- メインアプリ -->
+<div aria-live="polite" id="mainContent">
+<!-- ホームタブ -->
+<section aria-labelledby="homeTabTitle" class="tab-content active" id="homeTab">
+<header class="app-header">
+<div class="header-top">
+<h1 class="app-title" id="homeTabTitle">🍼 出産準備アプリ</h1>
+<button class="logout-btn" id="logoutBtn" type="button">ログアウト</button>
+</div>
+</header>
+<!-- カウントダウンカード -->
+<section aria-describedby="dueDateLabel" class="countdown-card">
+<div aria-hidden="true" class="baby-icon">👶</div>
+<div aria-live="polite" class="countdown-main" id="daysLeft">--</div>
+<div class="countdown-label" id="dueDateLabel">出産予定日まで</div>
+<div class="week-info">
+<div class="week-item">
+<div class="week-item-label">現在</div>
+<div class="week-item-value" id="currentWeek">--週--日</div>
+</div>
+<div class="week-item">
+<div class="week-item-label">予定日</div>
+<div class="week-item-value" id="dueDate">--/--</div>
+</div>
+</div>
+<button class="change-date-btn" id="changeDueDateBtn" type="button">📅 予定日を変更</button>
+</section>
+<!-- 赤ちゃんの成長カード -->
+<section class="baby-growth-card">
+<div class="card-title"><span>🌱</span><span id="babyGrowthTitle">赤ちゃんの成長</span></div>
+<div class="baby-size">
+<div aria-label="赤ちゃんの大きさ" class="size-item">
+<div aria-hidden="true" class="size-icon">📏</div>
+<div class="size-label">大きさ</div>
+<div class="size-value" id="babySize">--cm</div>
+</div>
+<div aria-label="赤ちゃんの体重" class="size-item">
+<div aria-hidden="true" class="size-icon">⚖️</div>
+<div class="size-label">体重</div>
+<div class="size-value" id="babyWeight">--g</div>
+</div>
+</div>
+<div class="growth-description" id="growthDescription">
           予定日を設定すると、赤ちゃんの成長情報が表示されます。
         </div>
-      </section>
+</section>
+<!-- アドバイスカード -->
+<section class="advice-card">
+<div class="advice-title"><span>💡</span><span>今週のアドバイス</span></div>
+<ul class="advice-list" id="adviceList">
+<li>予定日を設定すると、週数に応じたアドバイスが表示されます</li>
+</ul>
+</section>
+<!-- チェックリストへのリンク -->
+<section class="checklist-section">
+<div class="checklist-header">
+<div>
+<div class="card-title" style="margin-bottom:4px;">📋 申請手続き・準備リスト</div>
+<div style="font-size:12px; color:var(--text-mute);">全82項目</div>
+</div>
+<div aria-label="チェックリスト進捗" aria-live="polite" class="progress-ring" id="checklistProgress">0%</div>
+</div>
+<a class="checklist-link" href="#" id="openChecklistLink">チェックリストを開く →</a>
 
-      <!-- アドバイスカード -->
-      <section class="advice-card">
-        <div class="advice-title"><span>💡</span><span>今週のアドバイス</span></div>
-        <ul class="advice-list" id="adviceList">
-          <li>予定日を設定すると、週数に応じたアドバイスが表示されます</li>
-        </ul>
-      </section>
+</section>
+</section>
+<!-- チェックリストタブ -->
+<section aria-labelledby="checklistTabTitle" class="tab-content" id="checklistTab">
+<header class="app-header">
+<div class="header-top">
+<h2 class="app-title" id="checklistTabTitle">📋 チェックリスト</h2>
+<button class="logout-btn" id="logoutBtn2" type="button">ログアウト</button>
+</div>
+</header>
+<!-- タブ切り替え -->
+<div class="checklist-tabs" role="tablist">
+<button aria-selected="true" class="checklist-tab active" data-checktab="applications" role="tab">📋 申請手続き</button>
+<button aria-selected="false" class="checklist-tab" data-checktab="preparation" role="tab">🛍️ 出産準備</button>
+</div>
+<!-- 申請手続きタブ -->
+<div class="checklist-content active" id="applicationsChecklistTab">
+<div style="padding: 15px; padding-bottom: 100px;">
+<div class="checklist-group">
+<div class="checklist-group-header">妊娠がわかったら</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="app-1" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">妊娠届出（母子健康手帳）</div>
+<div class="item-desc-mini">区保健センターで交付</div>
+</div>
+</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="app-2" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">妊婦支援給付（1回目）</div>
+<div class="item-desc-mini">5万円支給</div>
+</div>
+</div>
+</div>
+<div class="checklist-group">
+<div class="checklist-group-header">出産予定日の8週前</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="app-3" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">妊婦支援給付（2回目）</div>
+<div class="item-desc-mini">5万円支給</div>
+</div>
+</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="app-4" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">産休申請（会社員）</div>
+<div class="item-desc-mini">勤務先へ申請</div>
+</div>
+</div>
+</div>
+<div class="checklist-group">
+<div class="checklist-group-header urgent">⚠️ 出産後すぐ（15日以内）</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="app-5" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">出生届</div>
+<div class="item-desc-mini">14日以内必須</div>
+</div>
+</div>
+<div aria-checked="false" class="checklist-item-mini urgent" data-id="app-6" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">🔴 児童手当</div>
+<div class="item-desc-mini">15日以内必須！遅れると受給開始が遅れます</div>
+</div>
+</div>
+<div aria-checked="false" class="checklist-item-mini urgent" data-id="app-7" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">🔴 子ども医療費助成</div>
+<div class="item-desc-mini">できるだけ早く申請</div>
+</div>
+</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="app-8" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">健康保険加入</div>
+<div class="item-desc-mini">勤務先または区役所</div>
+</div>
+</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="app-9" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">出産育児一時金</div>
+<div class="item-desc-mini">50万円支給</div>
+</div>
+</div>
+</div>
+<div class="checklist-group">
+<div class="checklist-group-header">産後1〜2ヶ月</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="app-10" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">出産手当金</div>
+<div class="item-desc-mini">日給の約2/3×98日分</div>
+</div>
+</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="app-11" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">国民年金保険料免除</div>
+<div class="item-desc-mini">産前産後4ヶ月分</div>
+</div>
+</div>
+</div>
+<div class="checklist-group">
+<div class="checklist-group-header">育休開始前</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="app-12" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">育休申請</div>
+<div class="item-desc-mini">勤務先へ1ヶ月前までに</div>
+</div>
+</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="app-13" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">育児休業給付金</div>
+<div class="item-desc-mini">最初180日:67%、以降:50%</div>
+</div>
+</div>
+</div>
+<div aria-label="給付金一覧" class="info-card-mini">
+<div class="info-title">💰 給付金一覧</div>
+<div class="info-row"><span>妊婦支援給付</span><span>計10万円</span></div>
+<div class="info-row"><span>出産育児一時金</span><span>50万円</span></div>
+<div class="info-row"><span>児童手当</span><span>月15,000円〜</span></div>
+<div class="info-row"><span>子ども医療費助成</span><span>18歳まで</span></div>
+</div>
+</div>
+</div>
+<!-- 出産準備タブ -->
+<div class="checklist-content" id="preparationChecklistTab">
+<div style="padding: 15px; padding-bottom: 100px;">
+<div class="checklist-group">
+<div class="checklist-group-header">👩 ママ用品</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="prep-1" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">産褥ショーツ <span class="badge-must">必須</span></div>
+<div class="shop-links-mini">
+<a href="https://www.amazon.co.jp/s?k=%E7%94%A3%E8%A4%A5%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%84" rel="noopener" target="_blank">Amazon</a>
+<a href="https://search.rakuten.co.jp/search/mall/%E7%94%A3%E8%A4%A5%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%84/" rel="noopener" target="_blank">楽天</a>
+</div>
+</div>
+</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="prep-2" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">授乳ブラ <span class="badge-must">必須</span></div>
+<div class="shop-links-mini">
+<a href="https://www.amazon.co.jp/s?k=%E6%8E%88%E4%B9%B3%E3%83%96%E3%83%A9" rel="noopener" target="_blank">Amazon</a>
+<a href="https://search.rakuten.co.jp/search/mall/%E6%8E%88%E4%B9%B3%E3%83%96%E3%83%A9/" rel="noopener" target="_blank">楽天</a>
+</div>
+</div>
+</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="prep-3" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">母乳パッド <span class="badge-must">必須</span></div>
+<div class="shop-links-mini">
+<a href="https://www.amazon.co.jp/s?k=%E6%AF%8D%E4%B9%B3%E3%83%91%E3%83%83%E3%83%89" rel="noopener" target="_blank">Amazon</a>
+<a href="https://search.rakuten.co.jp/search/mall/%E6%AF%8D%E4%B9%B3%E3%83%91%E3%83%83%E3%83%89/" rel="noopener" target="_blank">楽天</a>
+</div>
+</div>
+</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="prep-4" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">授乳クッション <span class="badge-recommended">推奨</span></div>
+<div class="shop-links-mini">
+<a href="https://www.amazon.co.jp/s?k=%E6%8E%88%E4%B9%B3%E3%82%AF%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3" rel="noopener" target="_blank">Amazon</a>
+<a href="https://search.rakuten.co.jp/search/mall/%E6%8E%88%E4%B9%B3%E3%82%AF%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3/" rel="noopener" target="_blank">楽天</a>
+</div>
+</div>
+</div>
+</div>
+<div class="checklist-group">
+<div class="checklist-group-header">👶 赤ちゃん衣類</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="prep-10" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">短肌着（5〜6枚） <span class="badge-must">必須</span></div>
+<div class="shop-links-mini">
+<a href="https://www.amazon.co.jp/s?k=%E6%96%B0%E7%94%9F%E5%85%90+%E7%9F%AD%E8%82%8C%E7%9D%80" rel="noopener" target="_blank">Amazon</a>
+<a href="https://search.rakuten.co.jp/search/mall/%E6%96%B0%E7%94%9F%E5%85%90+%E7%9F%AD%E8%82%8C%E7%9D%80/" rel="noopener" target="_blank">楽天</a>
+</div>
+</div>
+</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="prep-11" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">コンビ肌着（5〜6枚） <span class="badge-must">必須</span></div>
+<div class="shop-links-mini">
+<a href="https://www.amazon.co.jp/s?k=%E3%82%B3%E3%83%B3%E3%83%93%E8%82%8C%E7%9D%80" rel="noopener" target="_blank">Amazon</a>
+<a href="https://search.rakuten.co.jp/search/mall/%E3%82%B3%E3%83%B3%E3%83%93%E8%82%8C%E7%9D%80/" rel="noopener" target="_blank">楽天</a>
+</div>
+</div>
+</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="prep-12" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">防寒着・ジャンプスーツ <span class="badge-must">必須</span></div>
+<div class="shop-links-mini">
+<a href="https://www.amazon.co.jp/s?k=%E3%83%99%E3%83%93%E3%83%BC+%E3%82%B8%E3%83%A3%E3%83%B3%E3%83%97%E3%82%B9%E3%83%BC%E3%83%84" rel="noopener" target="_blank">Amazon</a>
+<a href="https://search.rakuten.co.jp/search/mall/%E3%83%99%E3%83%93%E3%83%BC+%E3%82%B8%E3%83%A3%E3%83%B3%E3%83%97%E3%82%B9%E3%83%BC%E3%83%84/" rel="noopener" target="_blank">楽天</a>
+</div>
+</div>
+</div>
+</div>
+<div class="checklist-group">
+<div class="checklist-group-header">🍼 授乳・調乳用品</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="prep-20" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">哺乳瓶 <span class="badge-must">必須</span></div>
+<div class="shop-links-mini">
+<a href="https://www.amazon.co.jp/s?k=%E5%93%BA%E4%B9%B3%E7%93%B6" rel="noopener" target="_blank">Amazon</a>
+<a href="https://search.rakuten.co.jp/search/mall/%E5%93%BA%E4%B9%B3%E7%93%B6/" rel="noopener" target="_blank">楽天</a>
+</div>
+</div>
+</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="prep-21" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">粉ミルク <span class="badge-recommended">推奨</span></div>
+<div class="shop-links-mini">
+<a href="https://www.amazon.co.jp/s?k=%E7%B2%89%E3%83%9F%E3%83%AB%E3%82%AF+%E6%96%B0%E7%94%9F%E5%85%90" rel="noopener" target="_blank">Amazon</a>
+<a href="https://search.rakuten.co.jp/search/mall/%E7%B2%89%E3%83%9F%E3%83%AB%E3%82%AF/" rel="noopener" target="_blank">楽天</a>
+</div>
+</div>
+</div>
+</div>
+<div class="checklist-group">
+<div class="checklist-group-header">🚗 お出かけ用品</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="prep-30" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">チャイルドシート <span class="badge-must">必須</span></div>
+<div class="shop-links-mini">
+<a href="https://www.amazon.co.jp/s?k=%E3%83%81%E3%83%A3%E3%82%A4%E3%83%AB%E3%83%89%E3%82%B7%E3%83%BC%E3%83%88+%E6%96%B0%E7%94%9F%E5%85%90" rel="noopener" target="_blank">Amazon</a>
+<a href="https://search.rakuten.co.jp/search/mall/%E3%83%81%E3%83%A3%E3%82%A4%E3%83%AB%E3%83%89%E3%82%B7%E3%83%BC%E3%83%88/" rel="noopener" target="_blank">楽天</a>
+</div>
+</div>
+</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="prep-31" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">ベビーカー <span class="badge-must">必須</span></div>
+<div class="shop-links-mini">
+<a href="https://www.amazon.co.jp/s?k=%E3%83%99%E3%83%93%E3%82%AB%E3%83%BC+A%E5%9E%8B" rel="noopener" target="_blank">Amazon</a>
+<a href="https://search.rakuten.co.jp/search/mall/%E3%83%99%E3%83%93%E3%82%AB%E3%83%BC/" rel="noopener" target="_blank">楽天</a>
+</div>
+</div>
+</div>
+<div aria-checked="false" class="checklist-item-mini" data-id="prep-32" role="checkbox" tabindex="0">
+<div aria-hidden="true" class="checkbox-mini"></div>
+<div class="item-text">
+<div class="item-title-mini">抱っこ紐 <span class="badge-must">必須</span></div>
+<div class="shop-links-mini">
+<a href="https://www.amazon.co.jp/s?k=%E6%8A%B1%E3%81%A3%E3%81%93%E7%B4%90+%E6%96%B0%E7%94%9F%E5%85%90" rel="noopener" target="_blank">Amazon</a>
+<a href="https://search.rakuten.co.jp/search/mall/%E6%8A%B1%E3%81%A3%E3%81%93%E7%B4%90/" rel="noopener" target="_blank">楽天</a>
+</div>
+</div>
+</div>
+</div>
+<div class="info-card-mini">
+<div class="info-title">❄️ 札幌ならではのポイント</div>
+<ul style="list-style:none; padding:0; margin:10px 0 0 0;">
+<li style="padding:5px 0; font-size:13px;">✓ 冬の防寒対策は必須（10月〜4月）</li>
+<li style="padding:5px 0; font-size:13px;">✓ 加湿器とベビーローションは冬の必需品</li>
+<li style="padding:5px 0; font-size:13px;">✓ ベビーカーは雪道対応を選ぼう</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- 情報タブ -->
+<section aria-labelledby="infoTabTitle" class="tab-content" id="infoTab">
+<header class="app-header">
+<div class="header-top">
+<h2 class="app-title" id="infoTabTitle">ℹ️ 情報・問い合わせ</h2>
+<button class="logout-btn" id="logoutBtn3" type="button">ログアウト</button>
+</div>
+</header>
+<div style="padding: 15px; padding-bottom: 100px;">
+<!-- 問い合わせ先 -->
+<section class="baby-growth-card">
+<div class="card-title"><span>📞</span><span>主な問い合わせ先</span></div>
+<div class="contact-item">
+<div class="contact-name">札幌市妊婦支援給付コールセンター</div>
+<a class="contact-phone" href="tel:0112130383">📱 011-213-0383</a>
+</div>
+<div class="contact-item">
+<div class="contact-name">お住まいの区役所</div>
+<div class="contact-detail">保健福祉課・保険年金課・戸籍住民課</div>
+</div>
+<div class="contact-item">
+<div class="contact-name">勤務先の人事・総務部</div>
+<div class="contact-detail">産休・育休・各種給付金の申請</div>
+</div>
+<div class="contact-item">
+<div class="contact-name">ハローワーク</div>
+<div class="contact-detail">育児休業給付金（通常は会社経由）</div>
+</div>
+</section>
+<!-- 給付金詳細 -->
+<section class="baby-growth-card">
+<div class="card-title"><span>💰</span><span>給付金・助成金詳細</span></div>
+<div class="benefit-item">
+<div class="benefit-name">妊婦のための支援給付</div>
+<div class="benefit-amount">計10万円</div>
+<div class="benefit-detail">5万円×2回（妊娠届出後、出産予定日の前月）</div>
+</div>
+<div class="benefit-item">
+<div class="benefit-name">出産育児一時金</div>
+<div class="benefit-amount">子ども1人につき50万円</div>
+<div class="benefit-detail">加入している健康保険へ申請</div>
+</div>
+<div class="benefit-item">
+<div class="benefit-name">出産手当金</div>
+<div class="benefit-amount">日給の約2/3×98日分</div>
+<div class="benefit-detail">会社員の場合、産休中の給与補償</div>
+</div>
+<div class="benefit-item">
+<div class="benefit-name">育児休業給付金</div>
+<div class="benefit-amount">最初180日：67%、以降：50%</div>
+<div class="benefit-detail">雇用保険から支給</div>
+</div>
+<div class="benefit-item">
+<div class="benefit-name">児童手当</div>
+<div class="benefit-amount">月15,000円〜10,000円</div>
+<div class="benefit-detail">0〜3歳：15,000円、3歳〜中学：10,000円</div>
+</div>
+<div class="benefit-item">
+<div class="benefit-name">子ども医療費助成</div>
+<div class="benefit-amount">18歳まで</div>
+<div class="benefit-detail">初診時のみ医科580円・歯科510円</div>
+</div>
+</section>
+<!-- 区役所リンク -->
+<section class="baby-growth-card">
+<div class="card-title"><span>🏛️</span><span>札幌市区役所一覧</span></div>
+<div class="ward-links">
+<a class="ward-link" href="https://www.city.sapporo.jp/chuo/" rel="noopener" target="_blank">中央区</a>
+<a class="ward-link" href="https://www.city.sapporo.jp/kitaku/" rel="noopener" target="_blank">北区</a>
+<a class="ward-link" href="https://www.city.sapporo.jp/higashi/" rel="noopener" target="_blank">東区</a>
+<a class="ward-link" href="https://www.city.sapporo.jp/shiroishi/" rel="noopener" target="_blank">白石区</a>
+<a class="ward-link" href="https://www.city.sapporo.jp/toyohira/" rel="noopener" target="_blank">豊平区</a>
+<a class="ward-link" href="https://www.city.sapporo.jp/minami/" rel="noopener" target="_blank">南区</a>
+<a class="ward-link" href="https://www.city.sapporo.jp/nishi/" rel="noopener" target="_blank">西区</a>
+<a class="ward-link" href="https://www.city.sapporo.jp/atsubetsu/" rel="noopener" target="_blank">厚別区</a>
+<a class="ward-link" href="https://www.city.sapporo.jp/teine/" rel="noopener" target="_blank">手稲区</a>
+<a class="ward-link" href="https://www.city.sapporo.jp/kiyota/" rel="noopener" target="_blank">清田区</a>
+</div>
+</section>
+<!-- アプリ情報 -->
 
-      <!-- チェックリストへのリンク -->
-      <section class="checklist-section">
-        <div class="checklist-header">
-          <div>
-            <div class="card-title" style="margin-bottom:4px;">📋 申請手続き・準備リスト</div>
-            <div style="font-size:12px; color:var(--text-mute);">全82項目</div>
-          </div>
-          <div class="progress-ring" id="checklistProgress" aria-live="polite" aria-label="チェックリスト進捗">0%</div>
-        </div>
-        <a href="#" class="checklist-link" id="openChecklistLink">チェックリストを開く →</a>
-
-        <div class="tools-row" aria-label="チェックリスト管理ツール">
-          <button class="tool-btn" id="exportBtn" type="button">進捗をエクスポート</button>
-          <button class="tool-btn" id="importBtn" type="button">進捗をインポート</button>
-          <button class="tool-btn" id="resetBtn" type="button">進捗リセット</button>
-          <input type="file" id="importFile" accept="application/json" class="sr-only" />
-        </div>
-      </section>
-    </section>
-
-    <!-- チェックリストタブ -->
-    <section id="checklistTab" class="tab-content" aria-labelledby="checklistTabTitle">
-      <header class="app-header">
-        <div class="header-top">
-          <h2 id="checklistTabTitle" class="app-title">📋 チェックリスト</h2>
-          <button class="logout-btn" id="logoutBtn2" type="button">ログアウト</button>
-        </div>
-      </header>
-
-      <!-- タブ切り替え -->
-      <div class="checklist-tabs" role="tablist">
-        <button class="checklist-tab active" data-checktab="applications" role="tab" aria-selected="true">📋 申請手続き</button>
-        <button class="checklist-tab" data-checktab="preparation" role="tab" aria-selected="false">🛍️ 出産準備</button>
-      </div>
-
-      <!-- 申請手続きタブ -->
-      <div id="applicationsChecklistTab" class="checklist-content active">
-        <div style="padding: 15px; padding-bottom: 100px;">
-          <div class="checklist-group">
-            <div class="checklist-group-header">妊娠がわかったら</div>
-
-            <div class="checklist-item-mini" data-id="app-1" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">妊娠届出（母子健康手帳）</div>
-                <div class="item-desc-mini">区保健センターで交付</div>
-              </div>
-            </div>
-
-            <div class="checklist-item-mini" data-id="app-2" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">妊婦支援給付（1回目）</div>
-                <div class="item-desc-mini">5万円支給</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="checklist-group">
-            <div class="checklist-group-header">出産予定日の8週前</div>
-
-            <div class="checklist-item-mini" data-id="app-3" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">妊婦支援給付（2回目）</div>
-                <div class="item-desc-mini">5万円支給</div>
-              </div>
-            </div>
-
-            <div class="checklist-item-mini" data-id="app-4" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">産休申請（会社員）</div>
-                <div class="item-desc-mini">勤務先へ申請</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="checklist-group">
-            <div class="checklist-group-header urgent">⚠️ 出産後すぐ（15日以内）</div>
-
-            <div class="checklist-item-mini" data-id="app-5" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">出生届</div>
-                <div class="item-desc-mini">14日以内必須</div>
-              </div>
-            </div>
-
-            <div class="checklist-item-mini urgent" data-id="app-6" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">🔴 児童手当</div>
-                <div class="item-desc-mini">15日以内必須！遅れると受給開始が遅れます</div>
-              </div>
-            </div>
-
-            <div class="checklist-item-mini urgent" data-id="app-7" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">🔴 子ども医療費助成</div>
-                <div class="item-desc-mini">できるだけ早く申請</div>
-              </div>
-            </div>
-
-            <div class="checklist-item-mini" data-id="app-8" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">健康保険加入</div>
-                <div class="item-desc-mini">勤務先または区役所</div>
-              </div>
-            </div>
-
-            <div class="checklist-item-mini" data-id="app-9" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">出産育児一時金</div>
-                <div class="item-desc-mini">50万円支給</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="checklist-group">
-            <div class="checklist-group-header">産後1〜2ヶ月</div>
-
-            <div class="checklist-item-mini" data-id="app-10" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">出産手当金</div>
-                <div class="item-desc-mini">日給の約2/3×98日分</div>
-              </div>
-            </div>
-
-            <div class="checklist-item-mini" data-id="app-11" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">国民年金保険料免除</div>
-                <div class="item-desc-mini">産前産後4ヶ月分</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="checklist-group">
-            <div class="checklist-group-header">育休開始前</div>
-
-            <div class="checklist-item-mini" data-id="app-12" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">育休申請</div>
-                <div class="item-desc-mini">勤務先へ1ヶ月前までに</div>
-              </div>
-            </div>
-
-            <div class="checklist-item-mini" data-id="app-13" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">育児休業給付金</div>
-                <div class="item-desc-mini">最初180日:67%、以降:50%</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="info-card-mini" aria-label="給付金一覧">
-            <div class="info-title">💰 給付金一覧</div>
-            <div class="info-row"><span>妊婦支援給付</span><span>計10万円</span></div>
-            <div class="info-row"><span>出産育児一時金</span><span>50万円</span></div>
-            <div class="info-row"><span>児童手当</span><span>月15,000円〜</span></div>
-            <div class="info-row"><span>子ども医療費助成</span><span>18歳まで</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 出産準備タブ -->
-      <div id="preparationChecklistTab" class="checklist-content">
-        <div style="padding: 15px; padding-bottom: 100px;">
-          <div class="checklist-group">
-            <div class="checklist-group-header">👩 ママ用品</div>
-
-            <div class="checklist-item-mini" data-id="prep-1" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">産褥ショーツ <span class="badge-must">必須</span></div>
-                <div class="shop-links-mini">
-                  <a href="https://www.amazon.co.jp/s?k=%E7%94%A3%E8%A4%A5%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%84" target="_blank" rel="noopener">Amazon</a>
-                  <a href="https://search.rakuten.co.jp/search/mall/%E7%94%A3%E8%A4%A5%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%84/" target="_blank" rel="noopener">楽天</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="checklist-item-mini" data-id="prep-2" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">授乳ブラ <span class="badge-must">必須</span></div>
-                <div class="shop-links-mini">
-                  <a href="https://www.amazon.co.jp/s?k=%E6%8E%88%E4%B9%B3%E3%83%96%E3%83%A9" target="_blank" rel="noopener">Amazon</a>
-                  <a href="https://search.rakuten.co.jp/search/mall/%E6%8E%88%E4%B9%B3%E3%83%96%E3%83%A9/" target="_blank" rel="noopener">楽天</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="checklist-item-mini" data-id="prep-3" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">母乳パッド <span class="badge-must">必須</span></div>
-                <div class="shop-links-mini">
-                  <a href="https://www.amazon.co.jp/s?k=%E6%AF%8D%E4%B9%B3%E3%83%91%E3%83%83%E3%83%89" target="_blank" rel="noopener">Amazon</a>
-                  <a href="https://search.rakuten.co.jp/search/mall/%E6%AF%8D%E4%B9%B3%E3%83%91%E3%83%83%E3%83%89/" target="_blank" rel="noopener">楽天</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="checklist-item-mini" data-id="prep-4" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">授乳クッション <span class="badge-recommended">推奨</span></div>
-                <div class="shop-links-mini">
-                  <a href="https://www.amazon.co.jp/s?k=%E6%8E%88%E4%B9%B3%E3%82%AF%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3" target="_blank" rel="noopener">Amazon</a>
-                  <a href="https://search.rakuten.co.jp/search/mall/%E6%8E%88%E4%B9%B3%E3%82%AF%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3/" target="_blank" rel="noopener">楽天</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="checklist-group">
-            <div class="checklist-group-header">👶 赤ちゃん衣類</div>
-
-            <div class="checklist-item-mini" data-id="prep-10" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">短肌着（5〜6枚） <span class="badge-must">必須</span></div>
-                <div class="shop-links-mini">
-                  <a href="https://www.amazon.co.jp/s?k=%E6%96%B0%E7%94%9F%E5%85%90+%E7%9F%AD%E8%82%8C%E7%9D%80" target="_blank" rel="noopener">Amazon</a>
-                  <a href="https://search.rakuten.co.jp/search/mall/%E6%96%B0%E7%94%9F%E5%85%90+%E7%9F%AD%E8%82%8C%E7%9D%80/" target="_blank" rel="noopener">楽天</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="checklist-item-mini" data-id="prep-11" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">コンビ肌着（5〜6枚） <span class="badge-must">必須</span></div>
-                <div class="shop-links-mini">
-                  <a href="https://www.amazon.co.jp/s?k=%E3%82%B3%E3%83%B3%E3%83%93%E8%82%8C%E7%9D%80" target="_blank" rel="noopener">Amazon</a>
-                  <a href="https://search.rakuten.co.jp/search/mall/%E3%82%B3%E3%83%B3%E3%83%93%E8%82%8C%E7%9D%80/" target="_blank" rel="noopener">楽天</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="checklist-item-mini" data-id="prep-12" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">防寒着・ジャンプスーツ <span class="badge-must">必須</span></div>
-                <div class="shop-links-mini">
-                  <a href="https://www.amazon.co.jp/s?k=%E3%83%99%E3%83%93%E3%83%BC+%E3%82%B8%E3%83%A3%E3%83%B3%E3%83%97%E3%82%B9%E3%83%BC%E3%83%84" target="_blank" rel="noopener">Amazon</a>
-                  <a href="https://search.rakuten.co.jp/search/mall/%E3%83%99%E3%83%93%E3%83%BC+%E3%82%B8%E3%83%A3%E3%83%B3%E3%83%97%E3%82%B9%E3%83%BC%E3%83%84/" target="_blank" rel="noopener">楽天</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="checklist-group">
-            <div class="checklist-group-header">🍼 授乳・調乳用品</div>
-
-            <div class="checklist-item-mini" data-id="prep-20" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">哺乳瓶 <span class="badge-must">必須</span></div>
-                <div class="shop-links-mini">
-                  <a href="https://www.amazon.co.jp/s?k=%E5%93%BA%E4%B9%B3%E7%93%B6" target="_blank" rel="noopener">Amazon</a>
-                  <a href="https://search.rakuten.co.jp/search/mall/%E5%93%BA%E4%B9%B3%E7%93%B6/" target="_blank" rel="noopener">楽天</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="checklist-item-mini" data-id="prep-21" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">粉ミルク <span class="badge-recommended">推奨</span></div>
-                <div class="shop-links-mini">
-                  <a href="https://www.amazon.co.jp/s?k=%E7%B2%89%E3%83%9F%E3%83%AB%E3%82%AF+%E6%96%B0%E7%94%9F%E5%85%90" target="_blank" rel="noopener">Amazon</a>
-                  <a href="https://search.rakuten.co.jp/search/mall/%E7%B2%89%E3%83%9F%E3%83%AB%E3%82%AF/" target="_blank" rel="noopener">楽天</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="checklist-group">
-            <div class="checklist-group-header">🚗 お出かけ用品</div>
-
-            <div class="checklist-item-mini" data-id="prep-30" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">チャイルドシート <span class="badge-must">必須</span></div>
-                <div class="shop-links-mini">
-                  <a href="https://www.amazon.co.jp/s?k=%E3%83%81%E3%83%A3%E3%82%A4%E3%83%AB%E3%83%89%E3%82%B7%E3%83%BC%E3%83%88+%E6%96%B0%E7%94%9F%E5%85%90" target="_blank" rel="noopener">Amazon</a>
-                  <a href="https://search.rakuten.co.jp/search/mall/%E3%83%81%E3%83%A3%E3%82%A4%E3%83%AB%E3%83%89%E3%82%B7%E3%83%BC%E3%83%88/" target="_blank" rel="noopener">楽天</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="checklist-item-mini" data-id="prep-31" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">ベビーカー <span class="badge-must">必須</span></div>
-                <div class="shop-links-mini">
-                  <a href="https://www.amazon.co.jp/s?k=%E3%83%99%E3%83%93%E3%82%AB%E3%83%BC+A%E5%9E%8B" target="_blank" rel="noopener">Amazon</a>
-                  <a href="https://search.rakuten.co.jp/search/mall/%E3%83%99%E3%83%93%E3%82%AB%E3%83%BC/" target="_blank" rel="noopener">楽天</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="checklist-item-mini" data-id="prep-32" tabindex="0" role="checkbox" aria-checked="false">
-              <div class="checkbox-mini" aria-hidden="true"></div>
-              <div class="item-text">
-                <div class="item-title-mini">抱っこ紐 <span class="badge-must">必須</span></div>
-                <div class="shop-links-mini">
-                  <a href="https://www.amazon.co.jp/s?k=%E6%8A%B1%E3%81%A3%E3%81%93%E7%B4%90+%E6%96%B0%E7%94%9F%E5%85%90" target="_blank" rel="noopener">Amazon</a>
-                  <a href="https://search.rakuten.co.jp/search/mall/%E6%8A%B1%E3%81%A3%E3%81%93%E7%B4%90/" target="_blank" rel="noopener">楽天</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="info-card-mini">
-            <div class="info-title">❄️ 札幌ならではのポイント</div>
-            <ul style="list-style:none; padding:0; margin:10px 0 0 0;">
-              <li style="padding:5px 0; font-size:13px;">✓ 冬の防寒対策は必須（10月〜4月）</li>
-              <li style="padding:5px 0; font-size:13px;">✓ 加湿器とベビーローションは冬の必需品</li>
-              <li style="padding:5px 0; font-size:13px;">✓ ベビーカーは雪道対応を選ぼう</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 情報タブ -->
-    <section id="infoTab" class="tab-content" aria-labelledby="infoTabTitle">
-      <header class="app-header">
-        <div class="header-top">
-          <h2 id="infoTabTitle" class="app-title">ℹ️ 情報・問い合わせ</h2>
-          <button class="logout-btn" id="logoutBtn3" type="button">ログアウト</button>
-        </div>
-      </header>
-
-      <div style="padding: 15px; padding-bottom: 100px;">
-        <!-- 問い合わせ先 -->
-        <section class="baby-growth-card">
-          <div class="card-title"><span>📞</span><span>主な問い合わせ先</span></div>
-
-          <div class="contact-item">
-            <div class="contact-name">札幌市妊婦支援給付コールセンター</div>
-            <a href="tel:0112130383" class="contact-phone">📱 011-213-0383</a>
-          </div>
-
-          <div class="contact-item">
-            <div class="contact-name">お住まいの区役所</div>
-            <div class="contact-detail">保健福祉課・保険年金課・戸籍住民課</div>
-          </div>
-
-          <div class="contact-item">
-            <div class="contact-name">勤務先の人事・総務部</div>
-            <div class="contact-detail">産休・育休・各種給付金の申請</div>
-          </div>
-
-          <div class="contact-item">
-            <div class="contact-name">ハローワーク</div>
-            <div class="contact-detail">育児休業給付金（通常は会社経由）</div>
-          </div>
-        </section>
-
-        <!-- 給付金詳細 -->
-        <section class="baby-growth-card">
-          <div class="card-title"><span>💰</span><span>給付金・助成金詳細</span></div>
-
-          <div class="benefit-item">
-            <div class="benefit-name">妊婦のための支援給付</div>
-            <div class="benefit-amount">計10万円</div>
-            <div class="benefit-detail">5万円×2回（妊娠届出後、出産予定日の前月）</div>
-          </div>
-
-          <div class="benefit-item">
-            <div class="benefit-name">出産育児一時金</div>
-            <div class="benefit-amount">子ども1人につき50万円</div>
-            <div class="benefit-detail">加入している健康保険へ申請</div>
-          </div>
-
-          <div class="benefit-item">
-            <div class="benefit-name">出産手当金</div>
-            <div class="benefit-amount">日給の約2/3×98日分</div>
-            <div class="benefit-detail">会社員の場合、産休中の給与補償</div>
-          </div>
-
-          <div class="benefit-item">
-            <div class="benefit-name">育児休業給付金</div>
-            <div class="benefit-amount">最初180日：67%、以降：50%</div>
-            <div class="benefit-detail">雇用保険から支給</div>
-          </div>
-
-          <div class="benefit-item">
-            <div class="benefit-name">児童手当</div>
-            <div class="benefit-amount">月15,000円〜10,000円</div>
-            <div class="benefit-detail">0〜3歳：15,000円、3歳〜中学：10,000円</div>
-          </div>
-
-          <div class="benefit-item">
-            <div class="benefit-name">子ども医療費助成</div>
-            <div class="benefit-amount">18歳まで</div>
-            <div class="benefit-detail">初診時のみ医科580円・歯科510円</div>
-          </div>
-        </section>
-
-        <!-- 区役所リンク -->
-        <section class="baby-growth-card">
-          <div class="card-title"><span>🏛️</span><span>札幌市区役所一覧</span></div>
-          <div class="ward-links">
-            <a href="https://www.city.sapporo.jp/chuo/" target="_blank" rel="noopener" class="ward-link">中央区</a>
-            <a href="https://www.city.sapporo.jp/kitaku/" target="_blank" rel="noopener" class="ward-link">北区</a>
-            <a href="https://www.city.sapporo.jp/higashi/" target="_blank" rel="noopener" class="ward-link">東区</a>
-            <a href="https://www.city.sapporo.jp/shiroishi/" target="_blank" rel="noopener" class="ward-link">白石区</a>
-            <a href="https://www.city.sapporo.jp/toyohira/" target="_blank" rel="noopener" class="ward-link">豊平区</a>
-            <a href="https://www.city.sapporo.jp/minami/" target="_blank" rel="noopener" class="ward-link">南区</a>
-            <a href="https://www.city.sapporo.jp/nishi/" target="_blank" rel="noopener" class="ward-link">西区</a>
-            <a href="https://www.city.sapporo.jp/atsubetsu/" target="_blank" rel="noopener" class="ward-link">厚別区</a>
-            <a href="https://www.city.sapporo.jp/teine/" target="_blank" rel="noopener" class="ward-link">手稲区</a>
-            <a href="https://www.city.sapporo.jp/kiyota/" target="_blank" rel="noopener" class="ward-link">清田区</a>
-          </div>
-        </section>
-
-        <!-- アプリ情報 -->
-        <section class="baby-growth-card">
-          <div class="card-title"><span>ℹ️</span><span>このアプリについて</span></div>
-          <div style="font-size:14px; line-height:1.8; color:var(--text-weak);">
-            <p style="margin-bottom:12px;">札幌市版 出産準備アプリは、妊娠中の方と出産を控えた方のために作られた総合サポートアプリです。</p>
-            <p style="margin-bottom:12px;">
-              <strong>主な機能：</strong><br>
-              • 出産予定日カウントダウン<br>
-              • 赤ちゃんの成長情報<br>
-              • 週数別アドバイス<br>
-              • 申請手続きチェックリスト<br>
-              • 出産準備品リスト
-            </p>
-            <p style="font-size:12px; color:var(--text-mute); margin-top:16px;">
-              ※このアプリの情報は2026年2月時点のものです。最新の情報は各窓口でご確認ください。
-            </p>
-          </div>
-        </section>
-      </div>
-    </section>
-
-    <!-- ナビゲーションバー -->
-    <nav class="nav-bar" aria-label="アプリのメインナビゲーション">
-      <button class="nav-item active" data-tab="home" type="button">
-        <span class="nav-icon" aria-hidden="true">🏠</span>
-        <span class="nav-label">ホーム</span>
-      </button>
-      <button class="nav-item" data-tab="checklist" type="button">
-        <span class="nav-icon" aria-hidden="true">📋</span>
-        <span class="nav-label">リスト</span>
-      </button>
-      <button class="nav-item" data-tab="info" type="button">
-        <span class="nav-icon" aria-hidden="true">ℹ️</span>
-        <span class="nav-label">情報</span>
-      </button>
-    </nav>
-  </div>
-
-  <!-- ダイアログ -->
-  <div class="custom-popup" id="dueDatePopup" role="dialog" aria-modal="true" aria-labelledby="dueDateDialogTitle">
-    <div class="popup-content" role="document">
-      <div class="popup-title" id="dueDateDialogTitle">📅 出産予定日の設定</div>
-      <input type="date" class="popup-input" id="dueDateInput" />
-      <div class="popup-buttons">
-        <button class="popup-btn popup-btn-secondary" id="cancelDueDateBtn" type="button">キャンセル</button>
-        <button class="popup-btn popup-btn-primary" id="saveDueDateBtn" type="button">保存</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
+</div>
+</section>
+<!-- ナビゲーションバー -->
+<nav aria-label="アプリのメインナビゲーション" class="nav-bar">
+<button class="nav-item active" data-tab="home" type="button">
+<span aria-hidden="true" class="nav-icon">🏠</span>
+<span class="nav-label">ホーム</span>
+</button>
+<button class="nav-item" data-tab="checklist" type="button">
+<span aria-hidden="true" class="nav-icon">📋</span>
+<span class="nav-label">リスト</span>
+</button>
+<button class="nav-item" data-tab="info" type="button">
+<span aria-hidden="true" class="nav-icon">ℹ️</span>
+<span class="nav-label">情報</span>
+</button>
+</nav>
+</div>
+<!-- ダイアログ -->
+<div aria-labelledby="dueDateDialogTitle" aria-modal="true" class="custom-popup" id="dueDatePopup" role="dialog">
+<div class="popup-content" role="document">
+<div class="popup-title" id="dueDateDialogTitle">📅 出産予定日の設定</div>
+<input class="popup-input" id="dueDateInput" type="date"/>
+<div class="popup-buttons">
+<button class="popup-btn popup-btn-secondary" id="cancelDueDateBtn" type="button">キャンセル</button>
+<button class="popup-btn popup-btn-primary" id="saveDueDateBtn" type="button">保存</button>
+</div>
+</div>
+</div>
+<script>
     // ==============================
     // 定数・Storageキー（名前空間 + 版管理）
     // ==============================
@@ -939,10 +847,10 @@
       const resetBtn = document.getElementById('resetBtn');
       const importFile = document.getElementById('importFile');
 
-      exportBtn.addEventListener('click', exportProgress);
+      if (exportBtn) exportBtn.addEventListener('click', exportProgress);
       importBtn.addEventListener('click', () => importFile.click());
-      importFile.addEventListener('change', importProgress);
-      resetBtn.addEventListener('click', () => {
+      if (importFile) importFile.addEventListener('change', importProgress);
+      if (resetBtn) resetBtn.addEventListener('click', () => {
         if (confirm('チェックリストの進捗をリセットしますか？')) {
           localStorage.removeItem(STORAGE.CHECKLIST);
           loadChecklistProgress();
