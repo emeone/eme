@@ -1,3 +1,7 @@
+git init
+
+git remote add origin https://github.com/emeone/eme
+
 # eme
 [sapporo_pregnancy_app .html](https://github.com/user-attachments/files/25334912/sapporo_pregnancy_app.html)
 <!DOCTYPE html>
