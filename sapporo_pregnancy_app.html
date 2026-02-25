@@ -95,6 +95,11 @@
       </div>
       <div class="actions">
         <button class="link" id="btnAdd">＋ 追加</button>
+
+ <button class="link" onclick="promptEditKey()">🔑 編集ON</button>
+  <button class="link" onclick="clearEditKey()">🚫 編集OFF</button>
+
+        
       </div>
     </div>
   </header>
@@ -795,5 +800,21 @@
 
   })();
   </script>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL  = "https://lxmdyjzsipofcfpntmnsqk.supabase.co";
+  const SUPABASE_ANON = "sb_publishable_xcAQf9qoAMroPADvBZV9qg_NEHRTn5j";
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+  // 編集キー管理
+  const EDIT_KEY_SESSION_KEY = "edit_key_session";
+  function getEditKey(){ return sessionStorage.getItem(EDIT_KEY_SESSION_KEY) || ""; }
+  function setEditKey(k){ sessionStorage.setItem(EDIT_KEY_SESSION_KEY, k||""); window.EDIT_ENABLED = !!k; }
+  function promptEditKey(){ const k=prompt("編集キーを入力"); if(k) setEditKey(k); }
+  function clearEditKey(){ setEditKey(""); }
+
+
+  
 </body>
 </html>
