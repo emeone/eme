@@ -503,9 +503,9 @@
     }
 
     function updateProgress(){
-      const total = document.querySelectorAll('#tabContent .item').length || 1;
+      const total = document.querySelectorAll('#tabContent .item').length;
       const done  = document.querySelectorAll('#tabContent .item input[type="checkbox"]:checked').length;
-      const pct   = Math.round((done/total)*100);
+      const pct   = total > 0 ? Math.round((done/total)*100) : 0;
       const el = document.getElementById('progress'); if(el) el.textContent = `進捗 ${pct}%`;
     }
 
@@ -559,24 +559,6 @@
       closeAdd(); renderList();
     });
 
-    // ===== 検索 & 情報カードフィルタ =====
-    document.getElementById('kw')?.addEventListener('input', ()=>{ renderList(); filterInfoCards(); });
-    function filterInfoCards(){
-      const kw = (document.getElementById('kw')?.value||'').trim();
-      const cards = $$('#infoGrid .info-card'); let any=false;
-      cards.forEach(c=>{
-        const hay = ((c.dataset.search || c.textContent || '').replace(/\s+/g,' ').trim());
-        const hit = (!kw || hay.includes(kw));
-        c.style.display = hit?'':'none'; if(hit) any=true;
-      });
-      if(!document.getElementById('infoNoHit')){
-        const d = document.createElement('div'); d.id='infoNoHit'; d.className='nohit'; d.style.display='none';
-        d.textContent='該当する情報カードが見つかりません。';
-        const bd = document.querySelector('#panel-info .bd'); if(bd) bd.appendChild(d);
-      }
-      document.getElementById('infoNoHit').style.display = any?'none':'';
-    }
-
     // ===== 下部タブ =====
     (function(){
       const tabs = $$('.tabbar .tabmain');
@@ -599,8 +581,8 @@
     function openDue(){
       const el = document.getElementById('inpDate');
       const today = new Date();
-      const min = new Date(today.getTime() - 7*24*3600*1000*45);
-      const max = new Date(today.getTime() + 7*24*3600*1000*45);
+      const min = new Date(today.getTime() - 315*24*3600*1000); // 妊娠0週相当（最大45週前）
+      const max = new Date(today.getTime() + 315*24*3600*1000); // 出産予定日最大45週先
       const fmt = (d)=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
       el.min = fmt(min); el.max = fmt(max);
       dbLoadDue().then(d=>{ el.value = d || fmt(today); });
@@ -608,7 +590,6 @@
       setTimeout(()=>el.focus(),20);
     }
     function closeDue(){ dlgDue.style.display='none'; }
-    document.getElementById('btnDue')?.addEventListener('click', openDue);
     document.getElementById('btnDue2')?.addEventListener('click', openDue);
     document.getElementById('btnXDue')?.addEventListener('click', closeDue);
     document.getElementById('btnCancelDue')?.addEventListener('click', closeDue);
